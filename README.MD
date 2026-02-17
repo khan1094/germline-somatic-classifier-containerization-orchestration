@@ -24,7 +24,7 @@ separated.
 
 ## Application Repository (version controlled)
 
-    ~/Desktop/somatic-classifier-project/
+    ~/Desktop/germline-somatic-classifier-containerization-orchestration-main/
     ├── Dockerfile
     ├── requirements.txt
     ├── workflowtemplate.yaml
