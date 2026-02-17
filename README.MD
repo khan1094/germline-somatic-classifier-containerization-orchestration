@@ -211,6 +211,11 @@ docker run --rm \
 
 Exit code must be 0 on success.
 
+Expected Output:
+``` bash
+Starting Somatic vs Germline Variant Classifier
+Completed successfully in 5.58 seconds. Exit Code: 0
+```
 ------------------------------------------------------------------------
 
 ## 4️⃣ Apply WorkflowTemplate
