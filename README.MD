@@ -2,8 +2,6 @@
 
 ## Containerization & Workflow Orchestration with k3d + Argo Workflows
 
-------------------------------------------------------------------------
-
 ## Overview
 
 This project containerizes a somatic variant classifier (Task I) and
@@ -24,7 +22,7 @@ control VCF samples in a reproducible and portable manner.
 Application source code and large reference datasets are intentionally
 separated.
 
-## 📁 Application Repository (version controlled)
+## Application Repository (version controlled)
 
     ~/Desktop/somatic-classifier-project/
     ├── Dockerfile
@@ -33,7 +31,7 @@ separated.
     └── germline_somatic_classifier/
         └── somatic_variant_classifier.py
 
-## 📁 External Reference Data (NOT committed to Git)
+## External Reference Data (NOT committed to Git)
 
     ~/refdata/
     ├── gnomad4_1pct.vcf.gz
@@ -126,7 +124,7 @@ indexed file access.
 
 # Step-by-Step Setup
 
-## 1️⃣ Create k3d Cluster
+## 1. Create k3d Cluster
 
 ``` bash
 k3d cluster create somatic-cluster --agents 3 --volume ~/refdata:/refdata@all
@@ -144,7 +142,7 @@ k3d-somatic-cluster-server-0   Ready    control-plane,master   55s   v1.31.5+k3s
 ```
 
 
-## 2️⃣ Install Argo Workflows (v3.5.11)
+## 2. Install Argo Workflows (v3.5.11)
 
 ``` bash
 kubectl create namespace argo
@@ -190,7 +188,7 @@ Open:
 
 ------------------------------------------------------------------------
 
-## 3️⃣ Build Docker Image
+## 3. Build Docker Image
 
 ``` bash
 docker build -t somatic-classifier:latest .
@@ -218,7 +216,7 @@ Completed successfully in 5.58 seconds. Exit Code: 0
 ```
 ------------------------------------------------------------------------
 
-## 4️⃣ Apply WorkflowTemplate
+## 4. Apply WorkflowTemplate
 
 ``` bash
 kubectl apply -f workflowtemplate.yaml
@@ -233,7 +231,7 @@ Template properties:
 
 ------------------------------------------------------------------------
 
-## 5️⃣ Submit Workflow
+## 5. Submit Workflow
 
 Tumor sample:
 
