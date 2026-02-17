@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: somatic-classifier-template
+  namespace: argo
+spec:
+  serviceAccountName: argo
+  entrypoint: run-classifier
+  arguments:
+    parameters:
+      - name: sample-vcf
+  templates:
+    - name: run-classifier
+      inputs:
+        parameters:
+          - name: sample-vcf
+      container:
+        image: somatic-classifier:latest
+        imagePullPolicy: IfNotPresent
+        command: ["python", "germline_somatic_classifier/somatic_variant_classifier.py"]
+        args:
+          - --sample-vcf
+          - /refdata/samples/{{workflow.parameters.sample-vcf}}
+          - --gnomad-vcf
+          - /refdata/gnomad4_1pct.vcf.gz
+          - --cosmic-tsv
+          - /refdata/hg38_cosmic91.txt.gz
+          - --output
+          - /refdata/results/{{workflow.name}}.tsv
+        volumeMounts:
+          - name: refdata
+            mountPath: /refdata
+      volumes:
+        - name: refdata
+          hostPath:
+            path: /refdata
